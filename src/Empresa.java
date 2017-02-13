@@ -7,7 +7,7 @@
  *
  * @author Alumno
  */
-public class Empresa {
+public class Empresa implements Comparable<Empresa>{
     private String identificador;
     private String nombre;
     private String cambio;
@@ -90,5 +90,10 @@ public class Empresa {
      */
     public void setVerde(boolean verde) {
         this.verde = verde;
+    }
+
+    @Override
+    public int compareTo(Empresa t) {
+        return this.identificador.compareTo(t.identificador);
     }
 }
