@@ -10,10 +10,6 @@ public class Main {
 		List<Poste.Bus> buses = p.getBuses();
 		Thread t1 = new Thread(p);
 		t1.start();
-		
-		Display d = new Display(buses,n);
-		Thread t2 = new Thread(d);
-		t2.start();
 	}
 	
 	
