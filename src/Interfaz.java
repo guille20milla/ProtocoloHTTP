@@ -1,8 +1,6 @@
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -35,8 +33,11 @@ public class Interfaz extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Empresas ibex");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -51,22 +52,55 @@ public class Interfaz extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void comprobarTabla(ArrayList <Empresa> empresas , int actualizacion){
+        jTextArea1.append("ACTUALIZACION----"+actualizacion+"\n");
+        boolean cambio=false;
+        String[] aux = new String[10];
+        for(int i=0;i<getjTable1().getRowCount();i++){
+            aux[i]=getjTable1().getValueAt(i,3).toString();
+        }
+        for(int i=0;i<empresas.size();i++){
+            if(!empresas.get(i).getPorcentaje().contentEquals(aux[i])){
+                jTextArea1.append("La empresa "+empresas.get(i).getNombre()+" se ha modificado"+"\n");
+                cambio=true;
+            }
+        }
+        if(!cambio){
+            jTextArea1.append("No hay cambios\n");
+        }
+    }
     
-    public void actualizarTabla(ArrayList <Empresa> empresas) {
+    public void actualizarTabla(ArrayList <Empresa> empresas, int actualizaciones) {
+        if(actualizaciones>0){
+            comprobarTabla(empresas, actualizaciones);
+        }
         DefaultTableModel modelo = null;
         String[] titulos = {"Identificador", "Nombre", "Cambio", "Porcentaje"};
         modelo = new DefaultTableModel(null, titulos) {
@@ -99,7 +133,9 @@ public class Interfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
     /**

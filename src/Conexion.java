@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import java.util.Collections;
 
 public class Conexion implements Runnable {
 
+    int contador = 0;
     Interfaz i;
     private HttpURLConnection conexion;
     ArrayList<Empresa> datos = new ArrayList<Empresa>();
@@ -28,7 +30,6 @@ public class Conexion implements Runnable {
             boolean verde = response.split("<tbody>")[1].split("<tr>")[i].split("<td")[4].split("<b")[1].contains("color:#008800;");
             Empresa e = new Empresa(id, nombre, cambio, porcentaje, verde);
             datos.add(e);
-            //System.out.println(response.split("<tbody>")[1].split("<tr>")[i].split("<td")[4].split("<b")[2].split(">")[1].split("<")[0]);
         }
         return datos;
     }
@@ -64,7 +65,7 @@ public class Conexion implements Runnable {
         while (true) {
             try {
                 cargar();
-                Thread.sleep(5000);
+                Thread.sleep(30000);
             } catch (Exception e) {
             }
         }
@@ -76,8 +77,9 @@ public class Conexion implements Runnable {
         datos.clear();
         datos.addAll(cargarTabla(response));
         Collections.sort(datos);
-        i.actualizarTabla(datos);
+        i.actualizarTabla(datos,contador);
         i.setVisible(true);
+        contador++;
     }
 
 }
