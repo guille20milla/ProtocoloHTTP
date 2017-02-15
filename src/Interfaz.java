@@ -89,7 +89,12 @@ public class Interfaz extends javax.swing.JFrame {
         for(int i=0;i<empresas.size();i++){
             if(!empresas.get(i).getPorcentaje().subSequence(2, 6).toString().contentEquals(aux[i])){
                 double calcular=Double.parseDouble(empresas.get(i).getPorcentaje().subSequence(2, 6).toString().replace(",", "."))-Double.parseDouble(aux[i].replace(",", "."));
-                jTextArea1.append("La empresa "+empresas.get(i).getNombre()+" se ha modificado en "+calcular+" %\n");
+                if(calcular<0){
+                    jTextArea1.append("La empresa "+empresas.get(i).getNombre()+" ha bajado en "+(calcular*-1)+" %\n");
+                }else{
+                    jTextArea1.append("La empresa "+empresas.get(i).getNombre()+" ha subido en "+calcular+" %\n");
+                }
+                
                 cambio=true;
             }
         }
