@@ -84,11 +84,12 @@ public class Interfaz extends javax.swing.JFrame {
         boolean cambio=false;
         String[] aux = new String[10];
         for(int i=0;i<getjTable1().getRowCount();i++){
-            aux[i]=getjTable1().getValueAt(i,3).toString();
+            aux[i]=getjTable1().getValueAt(i,3).toString().subSequence(2,6).toString();
         }
         for(int i=0;i<empresas.size();i++){
-            if(!empresas.get(i).getPorcentaje().contentEquals(aux[i])){
-                jTextArea1.append("La empresa "+empresas.get(i).getNombre()+" se ha modificado"+"\n");
+            if(!empresas.get(i).getPorcentaje().subSequence(2, 6).toString().contentEquals(aux[i])){
+                double calcular=Double.parseDouble(empresas.get(i).getPorcentaje().subSequence(2, 6).toString().replace(",", "."))-Double.parseDouble(aux[i].replace(",", "."));
+                jTextArea1.append("La empresa "+empresas.get(i).getNombre()+" se ha modificado en "+calcular+" %\n");
                 cambio=true;
             }
         }
